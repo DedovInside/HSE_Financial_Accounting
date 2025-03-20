@@ -22,3 +22,4 @@ C:\SoftwareConstruction\HSE_financial_accounting\HSE_financial_accounting\bin\De
 C:\SoftwareConstruction\HSE_financial_accounting\HSE_financial_accounting\bin\Debug\net9.0\System.Diagnostics.EventLog.dll
 C:\SoftwareConstruction\HSE_financial_accounting\HSE_financial_accounting\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Diagnostics.EventLog.Messages.dll
 C:\SoftwareConstruction\HSE_financial_accounting\HSE_financial_accounting\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Diagnostics.EventLog.dll
+C:\SoftwareConstruction\HSE_financial_accounting\HSE_financial_accounting\obj\Debug\net9.0\HSE_financial_accounting.sourcelink.json

@@ -10,9 +10,13 @@ using HSE_financial_accounting.Commands.CategoriesCommands;
 using HSE_financial_accounting.Commands.OperationsCommands;
 using HSE_financial_accounting.Commands.AnalyticsCommands;
 using HSE_financial_accounting.DataExport;
+using HSE_financial_accounting.DataImport;
 using HSE_financial_accounting.DataTransferObjects;
 using System.Text.Json;
 using Moq;
+using System.Reflection;
+using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
 
 namespace HSE_financial_accounting.Tests
 {
@@ -2760,6 +2764,655 @@ namespace HSE_financial_accounting.Tests
             Assert.Empty(repository.GetAll());
         }
         
+    }
+    
+    public class DataImporterTests
+    {
+        // Тестовый класс для имитации импортера
+        private class TestDataImporter : DataImporter
+        {
+            private readonly FinancialData _testData;
+
+            public TestDataImporter(
+                IBankAccountFacade accountFacade,
+                ICategoryFacade categoryFacade,
+                IOperationFacade operationFacade,
+                FinancialData testData) 
+                : base(accountFacade, categoryFacade, operationFacade)
+            {
+                _testData = testData;
+            }
+
+            protected override FinancialData ParseFile(string filePath)
+            {
+                // Возвращаем тестовые данные вместо чтения файла
+                return _testData;
+            }
+        }
+
+        [Fact]
+        public void ImportData_ShouldCreateAllEntities()
+        {
+            // Arrange
+            Mock<IBankAccountFacade> mockAccountFacade = new();
+            Mock<ICategoryFacade> mockCategoryFacade = new();
+            Mock<IOperationFacade> mockOperationFacade = new();
+
+            Guid accountId = Guid.NewGuid();
+            Guid categoryId = Guid.NewGuid();
+            Guid operationId = Guid.NewGuid();
+
+            // Создаем тестовые данные с одним аккаунтом, категорией и операцией
+            FinancialData testData = new()
+            {
+                Accounts = new List<BankAccountDto>
+                {
+                    new()
+                    { 
+                        Id = accountId, 
+                        Name = "Тестовый счет", 
+                        Balance = 1000m 
+                    }
+                },
+                Categories = new List<CategoryDto>
+                {
+                    new()
+                    { 
+                        Id = categoryId, 
+                        Name = "Тестовая категория", 
+                        Type = CategoryType.Income 
+                    }
+                },
+                Operations = new List<OperationDto>
+                {
+                    new()
+                    {
+                        Id = operationId,
+                        Type = OperationType.Income,
+                        BankAccountId = accountId,
+                        CategoryId = categoryId,
+                        Amount = 500m,
+                        Date = new DateTime(2023, 1, 1),
+                        Description = "Тестовая операция"
+                    }
+                }
+            };
+            
+            TestDataImporter importer = new(
+                mockAccountFacade.Object,
+                mockCategoryFacade.Object,
+                mockOperationFacade.Object,
+                testData);
+            
+            // Act
+            importer.ImportData("dummy.file"); // Имя файла не важно для теста
+            
+            // Assert
+            // Проверяем, что методы создания сущностей были вызваны с правильными параметрами
+            mockAccountFacade.Verify(f => f.CreateBankAccountWithId(
+                accountId, 
+                "Тестовый счет", 
+                1000m), 
+                Times.Once);
+                
+            mockCategoryFacade.Verify(f => f.CreateCategoryWithId(
+                categoryId, 
+                "Тестовая категория", 
+                CategoryType.Income), 
+                Times.Once);
+                
+            mockOperationFacade.Verify(f => f.CreateOperationWithId(
+                operationId,
+                OperationType.Income,
+                accountId,
+                500m,
+                new DateTime(2023, 1, 1),
+                "Тестовая операция",
+                categoryId), 
+                Times.Once);
+        }
+
+        [Fact]
+        public void ImportData_EmptyData_ShouldNotCallAnyCreationMethods()
+        {
+            // Arrange
+            Mock<IBankAccountFacade> mockAccountFacade = new();
+            Mock<ICategoryFacade> mockCategoryFacade = new();
+            Mock<IOperationFacade> mockOperationFacade = new();
+            
+            // Пустые тестовые данные
+            FinancialData emptyData = new()
+            {
+                Accounts = new List<BankAccountDto>(),
+                Categories = new List<CategoryDto>(),
+                Operations = new List<OperationDto>()
+            };
+            
+            TestDataImporter importer = new(
+                mockAccountFacade.Object,
+                mockCategoryFacade.Object,
+                mockOperationFacade.Object,
+                emptyData);
+            
+            // Act
+            importer.ImportData("dummy.file");
+            
+            // Assert
+            mockAccountFacade.Verify(f => f.CreateBankAccountWithId(
+                It.IsAny<Guid>(), 
+                It.IsAny<string>(), 
+                It.IsAny<decimal>()), 
+                Times.Never);
+                
+            mockCategoryFacade.Verify(f => f.CreateCategoryWithId(
+                It.IsAny<Guid>(), 
+                It.IsAny<string>(), 
+                It.IsAny<CategoryType>()), 
+                Times.Never);
+                
+            mockOperationFacade.Verify(f => f.CreateOperationWithId(
+                It.IsAny<Guid>(),
+                It.IsAny<OperationType>(),
+                It.IsAny<Guid>(),
+                It.IsAny<decimal>(),
+                It.IsAny<DateTime>(),
+                It.IsAny<string>(),
+                It.IsAny<Guid>()), 
+                Times.Never);
+        }
+    }
+    
+    public class CsvDataImporterTests
+    {
+        [Fact]
+        public void ParseFile_ValidCsvFile_ReturnsParsedData()
+        {
+            // Arrange
+            Mock<IBankAccountFacade> mockAccountFacade = new();
+            Mock<ICategoryFacade> mockCategoryFacade = new();
+            Mock<IOperationFacade> mockOperationFacade = new();
+            
+            string tempFilePath = Path.GetTempFileName();
+            
+            try
+            {
+                // Создаем тестовый CSV файл
+                string csvContent = @"[Accounts]
+Id,Name,Balance
+90f12e09-8a10-4695-8a3a-d7384e94d903,Дебетовая карта,50000.0
+
+[Categories]
+Id,Name,Type
+63f3dd1c-6afe-459f-b9be-c7d4c2a5c5c0,Зарплата,Income
+ae3d743a-ce87-4092-8641-cd32b1095c1b,Продукты,Expense
+
+[Operations]
+Id,Type,BankAccountId,Amount,Date,Description,CategoryId
+31c54800-659a-4a1a-a428-c55c391a6d4f,Income,90f12e09-8a10-4695-8a3a-d7384e94d903,150000.0,2023-06-10,Зарплата за июнь,63f3dd1c-6afe-459f-b9be-c7d4c2a5c5c0
+";
+                File.WriteAllText(tempFilePath, csvContent);
+                
+                CsvDataImporter importer = new(
+                    mockAccountFacade.Object, 
+                    mockCategoryFacade.Object, 
+                    mockOperationFacade.Object);
+                
+                // Используем рефлексию для вызова защищенного метода
+                MethodInfo? parseMethod = typeof(CsvDataImporter).GetMethod("ParseFile", 
+                    BindingFlags.NonPublic | BindingFlags.Instance);
+                
+                // Act
+                FinancialData result = (FinancialData)parseMethod.Invoke(importer, [tempFilePath]);
+                
+                // Assert
+                Assert.NotNull(result);
+                Assert.Single(result.Accounts);
+                Assert.Equal(2, result.Categories.Count);
+                Assert.Single(result.Operations);
+                
+                // Проверка данных аккаунта
+                Assert.Equal(Guid.Parse("90f12e09-8a10-4695-8a3a-d7384e94d903"), result.Accounts[0].Id);
+                Assert.Equal("Дебетовая карта", result.Accounts[0].Name);
+                Assert.Equal(50000.0m, result.Accounts[0].Balance);
+                
+                // Проверка данных категорий
+                Assert.Equal(Guid.Parse("63f3dd1c-6afe-459f-b9be-c7d4c2a5c5c0"), result.Categories[0].Id);
+                Assert.Equal("Зарплата", result.Categories[0].Name);
+                Assert.Equal(CategoryType.Income, result.Categories[0].Type);
+                
+                // Проверка данных операции
+                Assert.Equal(Guid.Parse("31c54800-659a-4a1a-a428-c55c391a6d4f"), result.Operations[0].Id);
+                Assert.Equal(OperationType.Income, result.Operations[0].Type);
+                Assert.Equal(Guid.Parse("90f12e09-8a10-4695-8a3a-d7384e94d903"), result.Operations[0].BankAccountId);
+                Assert.Equal(150000.0m, result.Operations[0].Amount);
+                Assert.Equal(new DateTime(2023, 6, 10), result.Operations[0].Date);
+                Assert.Equal("Зарплата за июнь", result.Operations[0].Description);
+                Assert.Equal(Guid.Parse("63f3dd1c-6afe-459f-b9be-c7d4c2a5c5c0"), result.Operations[0].CategoryId);
+            }
+            finally
+            {
+                // Удаляем временный файл
+                if (File.Exists(tempFilePath))
+                {
+                    File.Delete(tempFilePath);
+                }
+            }
+        }
+    }
+    
+    public class JsonDataImporterTests
+    {
+        [Fact]
+        public void ParseFile_ValidJsonFile_ReturnsParsedData()
+        {
+            // Arrange
+            Mock<IBankAccountFacade> mockAccountFacade = new();
+            Mock<ICategoryFacade> mockCategoryFacade = new();
+            Mock<IOperationFacade> mockOperationFacade = new();
+            
+            string tempFilePath = Path.GetTempFileName();
+            
+            try
+            {
+                // Создаем тестовые данные
+                FinancialData testData = new()
+                {
+                    Accounts = new List<BankAccountDto>
+                    {
+                        new()
+                        {
+                            Id = Guid.Parse("90f12e09-8a10-4695-8a3a-d7384e94d903"),
+                            Name = "Дебетовая карта",
+                            Balance = 50000.0m
+                        }
+                    },
+                    Categories = new List<CategoryDto>
+                    {
+                        new()
+                        {
+                            Id = Guid.Parse("63f3dd1c-6afe-459f-b9be-c7d4c2a5c5c0"),
+                            Name = "Зарплата",
+                            Type = CategoryType.Income
+                        },
+                        new()
+                        {
+                            Id = Guid.Parse("ae3d743a-ce87-4092-8641-cd32b1095c1b"),
+                            Name = "Продукты",
+                            Type = CategoryType.Expense
+                        }
+                    },
+                    Operations = new List<OperationDto>
+                    {
+                        new()
+                        {
+                            Id = Guid.Parse("31c54800-659a-4a1a-a428-c55c391a6d4f"),
+                            Type = OperationType.Income,
+                            BankAccountId = Guid.Parse("90f12e09-8a10-4695-8a3a-d7384e94d903"),
+                            Amount = 150000.0m,
+                            Date = new DateTime(2023, 6, 10),
+                            Description = "Зарплата за июнь",
+                            CategoryId = Guid.Parse("63f3dd1c-6afe-459f-b9be-c7d4c2a5c5c0")
+                        }
+                    }
+                };
+                
+                // Сериализуем в JSON и записываем во временный файл
+                string jsonContent = JsonSerializer.Serialize(testData, new JsonSerializerOptions 
+                { 
+                    WriteIndented = true 
+                });
+                File.WriteAllText(tempFilePath, jsonContent);
+                
+                JsonDataImporter importer = new(
+                    mockAccountFacade.Object, 
+                    mockCategoryFacade.Object, 
+                    mockOperationFacade.Object);
+                
+                // Используем рефлексию для вызова защищенного метода
+                MethodInfo? parseMethod = typeof(JsonDataImporter).GetMethod("ParseFile", 
+                    BindingFlags.NonPublic | BindingFlags.Instance);
+                
+                // Act
+                FinancialData result = (FinancialData)parseMethod.Invoke(importer, new object[] { tempFilePath });
+                
+                // Assert
+                Assert.NotNull(result);
+                Assert.Single(result.Accounts);
+                Assert.Equal(2, result.Categories.Count);
+                Assert.Single(result.Operations);
+                
+                // Проверка данных аккаунта
+                Assert.Equal(Guid.Parse("90f12e09-8a10-4695-8a3a-d7384e94d903"), result.Accounts[0].Id);
+                Assert.Equal("Дебетовая карта", result.Accounts[0].Name);
+                Assert.Equal(50000.0m, result.Accounts[0].Balance);
+                
+                // Проверка данных категорий
+                Assert.Equal(Guid.Parse("63f3dd1c-6afe-459f-b9be-c7d4c2a5c5c0"), result.Categories[0].Id);
+                Assert.Equal("Зарплата", result.Categories[0].Name);
+                Assert.Equal(CategoryType.Income, result.Categories[0].Type);
+                
+                Assert.Equal(Guid.Parse("ae3d743a-ce87-4092-8641-cd32b1095c1b"), result.Categories[1].Id);
+                Assert.Equal("Продукты", result.Categories[1].Name);
+                Assert.Equal(CategoryType.Expense, result.Categories[1].Type);
+                
+                // Проверка данных операции
+                Assert.Equal(Guid.Parse("31c54800-659a-4a1a-a428-c55c391a6d4f"), result.Operations[0].Id);
+                Assert.Equal(OperationType.Income, result.Operations[0].Type);
+                Assert.Equal(Guid.Parse("90f12e09-8a10-4695-8a3a-d7384e94d903"), result.Operations[0].BankAccountId);
+                Assert.Equal(150000.0m, result.Operations[0].Amount);
+                Assert.Equal(new DateTime(2023, 6, 10), result.Operations[0].Date);
+                Assert.Equal("Зарплата за июнь", result.Operations[0].Description);
+                Assert.Equal(Guid.Parse("63f3dd1c-6afe-459f-b9be-c7d4c2a5c5c0"), result.Operations[0].CategoryId);
+            }
+            finally
+            {
+                // Удаляем временный файл
+                if (File.Exists(tempFilePath))
+                {
+                    File.Delete(tempFilePath);
+                }
+            }
+        }
+
+        [Fact]
+        public void ParseFile_EmptyJsonFile_ReturnsEmptyData()
+        {
+            // Arrange
+            Mock<IBankAccountFacade> mockAccountFacade = new();
+            Mock<ICategoryFacade> mockCategoryFacade = new();
+            Mock<IOperationFacade> mockOperationFacade = new();
+            
+            string tempFilePath = Path.GetTempFileName();
+            
+            try
+            {
+                // Создаем пустой JSON файл
+                File.WriteAllText(tempFilePath, "{}");
+                
+                JsonDataImporter importer = new(
+                    mockAccountFacade.Object, 
+                    mockCategoryFacade.Object, 
+                    mockOperationFacade.Object);
+                
+                MethodInfo? parseMethod = typeof(JsonDataImporter).GetMethod("ParseFile", 
+                    BindingFlags.NonPublic | BindingFlags.Instance);
+                
+                // Act
+                FinancialData result = (FinancialData)parseMethod.Invoke(importer, [tempFilePath]);
+                
+                // Assert
+                Assert.NotNull(result);
+                Assert.Empty(result.Accounts);
+                Assert.Empty(result.Categories);
+                Assert.Empty(result.Operations);
+            }
+            finally
+            {
+                if (File.Exists(tempFilePath))
+                {
+                    File.Delete(tempFilePath);
+                }
+            }
+        }
+
+        [Fact]
+        public void ParseFile_InvalidJsonFile_ThrowsException()
+        {
+            // Arrange
+            Mock<IBankAccountFacade> mockAccountFacade = new();
+            Mock<ICategoryFacade> mockCategoryFacade = new();
+            Mock<IOperationFacade> mockOperationFacade = new();
+            
+            string tempFilePath = Path.GetTempFileName();
+            
+            try
+            {
+                // Создаем некорректный JSON файл
+                File.WriteAllText(tempFilePath, "{ некорректный json");
+                
+                JsonDataImporter importer = new(
+                    mockAccountFacade.Object, 
+                    mockCategoryFacade.Object, 
+                    mockOperationFacade.Object);
+                
+                MethodInfo? parseMethod = typeof(JsonDataImporter).GetMethod("ParseFile", 
+                    BindingFlags.NonPublic | BindingFlags.Instance);
+                
+                // Act & Assert
+                Assert.Throws<System.Reflection.TargetInvocationException>(() => 
+                    parseMethod.Invoke(importer, [tempFilePath]));
+            }
+            finally
+            {
+                if (File.Exists(tempFilePath))
+                {
+                    File.Delete(tempFilePath);
+                }
+            }
+        }
+    }
+    
+    public class YamlDataImporterTests
+    {
+        [Fact]
+        public void ParseFile_ValidYamlFile_ReturnsParsedData()
+        {
+            // Arrange
+            Mock<IBankAccountFacade> mockAccountFacade = new();
+            Mock<ICategoryFacade> mockCategoryFacade = new();
+            Mock<IOperationFacade> mockOperationFacade = new();
+            
+            string tempFilePath = Path.GetTempFileName();
+            
+            try
+            {
+                // Создаем тестовый YAML файл
+                string yamlContent = @"accounts:
+- id: 90f12e09-8a10-4695-8a3a-d7384e94d903
+  name: Дебетовая карта
+  balance: 50000.0
+categories:
+- id: 63f3dd1c-6afe-459f-b9be-c7d4c2a5c5c0
+  name: Зарплата
+  type: Income
+- id: ae3d743a-ce87-4092-8641-cd32b1095c1b
+  name: Продукты
+  type: Expense
+operations:
+- id: 31c54800-659a-4a1a-a428-c55c391a6d4f
+  type: Income
+  bankAccountId: 90f12e09-8a10-4695-8a3a-d7384e94d903
+  amount: 150000.0
+  date: 2023-06-10T00:00:00.0000000
+  description: Зарплата за июнь
+  categoryId: 63f3dd1c-6afe-459f-b9be-c7d4c2a5c5c0";
+                
+                File.WriteAllText(tempFilePath, yamlContent);
+                
+                YamlDataImporter importer = new(
+                    mockAccountFacade.Object, 
+                    mockCategoryFacade.Object, 
+                    mockOperationFacade.Object);
+                
+                // Используем рефлексию для вызова защищенного метода
+                MethodInfo? parseMethod = typeof(YamlDataImporter).GetMethod("ParseFile", 
+                    BindingFlags.NonPublic | BindingFlags.Instance);
+                
+                // Act
+                FinancialData result = (FinancialData)parseMethod.Invoke(importer, [tempFilePath]);
+                
+                // Assert
+                Assert.NotNull(result);
+                Assert.Single(result.Accounts);
+                Assert.Equal(2, result.Categories.Count);
+                Assert.Single(result.Operations);
+                
+                // Проверка данных аккаунта
+                Assert.Equal(Guid.Parse("90f12e09-8a10-4695-8a3a-d7384e94d903"), result.Accounts[0].Id);
+                Assert.Equal("Дебетовая карта", result.Accounts[0].Name);
+                Assert.Equal(50000.0m, result.Accounts[0].Balance);
+                
+                // Проверка данных категорий
+                Assert.Equal(Guid.Parse("63f3dd1c-6afe-459f-b9be-c7d4c2a5c5c0"), result.Categories[0].Id);
+                Assert.Equal("Зарплата", result.Categories[0].Name);
+                Assert.Equal(CategoryType.Income, result.Categories[0].Type);
+                
+                Assert.Equal(Guid.Parse("ae3d743a-ce87-4092-8641-cd32b1095c1b"), result.Categories[1].Id);
+                Assert.Equal("Продукты", result.Categories[1].Name);
+                Assert.Equal(CategoryType.Expense, result.Categories[1].Type);
+                
+                // Проверка данных операции
+                Assert.Equal(Guid.Parse("31c54800-659a-4a1a-a428-c55c391a6d4f"), result.Operations[0].Id);
+                Assert.Equal(OperationType.Income, result.Operations[0].Type);
+                Assert.Equal(Guid.Parse("90f12e09-8a10-4695-8a3a-d7384e94d903"), result.Operations[0].BankAccountId);
+                Assert.Equal(150000.0m, result.Operations[0].Amount);
+                Assert.Equal(new DateTime(2023, 6, 10), result.Operations[0].Date);
+                Assert.Equal("Зарплата за июнь", result.Operations[0].Description);
+                Assert.Equal(Guid.Parse("63f3dd1c-6afe-459f-b9be-c7d4c2a5c5c0"), result.Operations[0].CategoryId);
+            }
+            finally
+            {
+                // Удаляем временный файл
+                if (File.Exists(tempFilePath))
+                {
+                    File.Delete(tempFilePath);
+                }
+            }
+        }
+
+        [Fact]
+        public void ParseFile_EmptyYamlFile_ReturnsEmptyData()
+        {
+            // Arrange
+            Mock<IBankAccountFacade> mockAccountFacade = new();
+            Mock<ICategoryFacade> mockCategoryFacade = new();
+            Mock<IOperationFacade> mockOperationFacade = new();
+            
+            string tempFilePath = Path.GetTempFileName();
+            
+            try
+            {
+                // Создаем пустой YAML файл
+                File.WriteAllText(tempFilePath, "");
+                
+                YamlDataImporter importer = new(
+                    mockAccountFacade.Object, 
+                    mockCategoryFacade.Object, 
+                    mockOperationFacade.Object);
+                
+                MethodInfo? parseMethod = typeof(YamlDataImporter).GetMethod("ParseFile", 
+                    BindingFlags.NonPublic | BindingFlags.Instance);
+                
+                // Act
+                FinancialData result = (FinancialData)parseMethod.Invoke(importer, [tempFilePath]);
+                
+                // Assert
+                Assert.NotNull(result);
+                Assert.Empty(result.Accounts);
+                Assert.Empty(result.Categories);
+                Assert.Empty(result.Operations);
+            }
+            finally
+            {
+                if (File.Exists(tempFilePath))
+                {
+                    File.Delete(tempFilePath);
+                }
+            }
+        }
+
+        [Fact]
+        public void ParseFile_InvalidYamlFile_ThrowsException()
+        {
+            // Arrange
+            Mock<IBankAccountFacade> mockAccountFacade = new();
+            Mock<ICategoryFacade> mockCategoryFacade = new();
+            Mock<IOperationFacade> mockOperationFacade = new();
+            
+            string tempFilePath = Path.GetTempFileName();
+            
+            try
+            {
+                // Создаем некорректный YAML файл
+                File.WriteAllText(tempFilePath, "accounts: - incorrect: yaml: syntax");
+                
+                YamlDataImporter importer = new(
+                    mockAccountFacade.Object, 
+                    mockCategoryFacade.Object, 
+                    mockOperationFacade.Object);
+                
+                MethodInfo? parseMethod = typeof(YamlDataImporter).GetMethod("ParseFile", 
+                    BindingFlags.NonPublic | BindingFlags.Instance);
+                
+                // Act & Assert
+                Assert.Throws<TargetInvocationException>(() => 
+                    parseMethod.Invoke(importer, [tempFilePath]));
+            }
+            finally
+            {
+                if (File.Exists(tempFilePath))
+                {
+                    File.Delete(tempFilePath);
+                }
+            }
+        }
+
+        [Fact]
+        public void ImportData_CallsProcessDataWithParsedData()
+        {
+            // Arrange
+            Mock<IBankAccountFacade> mockAccountFacade = new();
+            Mock<ICategoryFacade> mockCategoryFacade = new();
+            Mock<IOperationFacade> mockOperationFacade = new();
+            
+            string tempFilePath = Path.GetTempFileName();
+            
+            try
+            {
+                // Создаем тестовый YAML файл с минимальным содержанием
+                FinancialData testData = new()
+                {
+                    Accounts = new List<BankAccountDto>
+                    {
+                        new()
+                        { 
+                            Id = Guid.NewGuid(), 
+                            Name = "Тест", 
+                            Balance = 100m 
+                        }
+                    }
+                };
+                
+                // Сериализуем в YAML
+                ISerializer serializer = new SerializerBuilder()
+                    .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                    .Build();
+                string yamlContent = serializer.Serialize(testData);
+                File.WriteAllText(tempFilePath, yamlContent);
+                
+                YamlDataImporter importer = new(
+                    mockAccountFacade.Object, 
+                    mockCategoryFacade.Object, 
+                    mockOperationFacade.Object);
+                
+                // Act
+                importer.ImportData(tempFilePath);
+                
+                // Assert
+                mockAccountFacade.Verify(f => f.CreateBankAccountWithId(
+                    It.IsAny<Guid>(), 
+                    "Тест", 
+                    100m), 
+                    Times.Once);
+            }
+            finally
+            {
+                if (File.Exists(tempFilePath))
+                {
+                    File.Delete(tempFilePath);
+                }
+            }
+        }
     }
     
 }

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HSE_financial_accounting.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f31f777ec6e86acad07e9134a47e0a8b3930e08a")]
 [assembly: System.Reflection.AssemblyProductAttribute("HSE_financial_accounting.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HSE_financial_accounting.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

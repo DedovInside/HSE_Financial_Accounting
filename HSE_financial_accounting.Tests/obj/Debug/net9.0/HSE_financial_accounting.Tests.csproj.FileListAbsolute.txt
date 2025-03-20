@@ -111,3 +111,4 @@ C:\SoftwareConstruction\HSE_financial_accounting\HSE_financial_accounting.Tests\
 C:\SoftwareConstruction\HSE_financial_accounting\HSE_financial_accounting.Tests\obj\Debug\net9.0\HSE_financial_accounting.Tests.pdb
 C:\SoftwareConstruction\HSE_financial_accounting\HSE_financial_accounting.Tests\obj\Debug\net9.0\HSE_financial_accounting.Tests.genruntimeconfig.cache
 C:\SoftwareConstruction\HSE_financial_accounting\HSE_financial_accounting.Tests\obj\Debug\net9.0\ref\HSE_financial_accounting.Tests.dll
+C:\SoftwareConstruction\HSE_financial_accounting\HSE_financial_accounting.Tests\obj\Debug\net9.0\HSE_financial_accounting.Tests.sourcelink.json

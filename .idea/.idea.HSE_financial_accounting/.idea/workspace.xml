@@ -7,7 +7,37 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="00ab2e52-800a-4514-8a12-8fcb1bd8a47e" name="Changes" comment="" />
+    <list default="true" id="00ab2e52-800a-4514-8a12-8fcb1bd8a47e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.HSE_financial_accounting/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.HSE_financial_accounting/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HSE_financial_accounting.Tests/UnitTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HSE_financial_accounting.Tests/UnitTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HSE_financial_accounting.Tests/bin/Debug/net9.0/.msCoverageSourceRootsMapping_HSE_financial_accounting.Tests" beforeDir="false" afterPath="$PROJECT_DIR$/HSE_financial_accounting.Tests/bin/Debug/net9.0/.msCoverageSourceRootsMapping_HSE_financial_accounting.Tests" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HSE_financial_accounting.Tests/bin/Debug/net9.0/CoverletSourceRootsMapping_HSE_financial_accounting.Tests" beforeDir="false" afterPath="$PROJECT_DIR$/HSE_financial_accounting.Tests/bin/Debug/net9.0/CoverletSourceRootsMapping_HSE_financial_accounting.Tests" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HSE_financial_accounting.Tests/bin/Debug/net9.0/HSE_financial_accounting.Tests.dll" beforeDir="false" afterPath="$PROJECT_DIR$/HSE_financial_accounting.Tests/bin/Debug/net9.0/HSE_financial_accounting.Tests.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HSE_financial_accounting.Tests/bin/Debug/net9.0/HSE_financial_accounting.Tests.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/HSE_financial_accounting.Tests/bin/Debug/net9.0/HSE_financial_accounting.Tests.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HSE_financial_accounting.Tests/bin/Debug/net9.0/HSE_financial_accounting.dll" beforeDir="false" afterPath="$PROJECT_DIR$/HSE_financial_accounting.Tests/bin/Debug/net9.0/HSE_financial_accounting.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HSE_financial_accounting.Tests/bin/Debug/net9.0/HSE_financial_accounting.exe" beforeDir="false" afterPath="$PROJECT_DIR$/HSE_financial_accounting.Tests/bin/Debug/net9.0/HSE_financial_accounting.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HSE_financial_accounting.Tests/bin/Debug/net9.0/HSE_financial_accounting.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/HSE_financial_accounting.Tests/bin/Debug/net9.0/HSE_financial_accounting.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HSE_financial_accounting.Tests/obj/Debug/net9.0/HSE_financial_accounting.Tests.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HSE_financial_accounting.Tests/obj/Debug/net9.0/HSE_financial_accounting.Tests.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HSE_financial_accounting.Tests/obj/Debug/net9.0/HSE_financial_accounting.Tests.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/HSE_financial_accounting.Tests/obj/Debug/net9.0/HSE_financial_accounting.Tests.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HSE_financial_accounting.Tests/obj/Debug/net9.0/HSE_financial_accounting.Tests.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/HSE_financial_accounting.Tests/obj/Debug/net9.0/HSE_financial_accounting.Tests.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HSE_financial_accounting.Tests/obj/Debug/net9.0/HSE_financial_accounting.Tests.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/HSE_financial_accounting.Tests/obj/Debug/net9.0/HSE_financial_accounting.Tests.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HSE_financial_accounting.Tests/obj/Debug/net9.0/HSE_financial_accounting.Tests.dll" beforeDir="false" afterPath="$PROJECT_DIR$/HSE_financial_accounting.Tests/obj/Debug/net9.0/HSE_financial_accounting.Tests.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HSE_financial_accounting.Tests/obj/Debug/net9.0/HSE_financial_accounting.Tests.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/HSE_financial_accounting.Tests/obj/Debug/net9.0/HSE_financial_accounting.Tests.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HSE_financial_accounting.Tests/obj/Debug/net9.0/ref/HSE_financial_accounting.Tests.dll" beforeDir="false" afterPath="$PROJECT_DIR$/HSE_financial_accounting.Tests/obj/Debug/net9.0/ref/HSE_financial_accounting.Tests.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HSE_financial_accounting.Tests/obj/Debug/net9.0/refint/HSE_financial_accounting.Tests.dll" beforeDir="false" afterPath="$PROJECT_DIR$/HSE_financial_accounting.Tests/obj/Debug/net9.0/refint/HSE_financial_accounting.Tests.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HSE_financial_accounting.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/HSE_financial_accounting.sln.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HSE_financial_accounting/bin/Debug/net9.0/HSE_financial_accounting.dll" beforeDir="false" afterPath="$PROJECT_DIR$/HSE_financial_accounting/bin/Debug/net9.0/HSE_financial_accounting.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HSE_financial_accounting/bin/Debug/net9.0/HSE_financial_accounting.exe" beforeDir="false" afterPath="$PROJECT_DIR$/HSE_financial_accounting/bin/Debug/net9.0/HSE_financial_accounting.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HSE_financial_accounting/bin/Debug/net9.0/HSE_financial_accounting.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/HSE_financial_accounting/bin/Debug/net9.0/HSE_financial_accounting.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HSE_financial_accounting/obj/Debug/net9.0/HSE_financial_accounting.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/HSE_financial_accounting/obj/Debug/net9.0/HSE_financial_accounting.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HSE_financial_accounting/obj/Debug/net9.0/HSE_financial_accounting.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/HSE_financial_accounting/obj/Debug/net9.0/HSE_financial_accounting.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HSE_financial_accounting/obj/Debug/net9.0/HSE_financial_accounting.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/HSE_financial_accounting/obj/Debug/net9.0/HSE_financial_accounting.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HSE_financial_accounting/obj/Debug/net9.0/HSE_financial_accounting.dll" beforeDir="false" afterPath="$PROJECT_DIR$/HSE_financial_accounting/obj/Debug/net9.0/HSE_financial_accounting.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HSE_financial_accounting/obj/Debug/net9.0/HSE_financial_accounting.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/HSE_financial_accounting/obj/Debug/net9.0/HSE_financial_accounting.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HSE_financial_accounting/obj/Debug/net9.0/apphost.exe" beforeDir="false" afterPath="$PROJECT_DIR$/HSE_financial_accounting/obj/Debug/net9.0/apphost.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HSE_financial_accounting/obj/Debug/net9.0/ref/HSE_financial_accounting.dll" beforeDir="false" afterPath="$PROJECT_DIR$/HSE_financial_accounting/obj/Debug/net9.0/ref/HSE_financial_accounting.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HSE_financial_accounting/obj/Debug/net9.0/refint/HSE_financial_accounting.dll" beforeDir="false" afterPath="$PROJECT_DIR$/HSE_financial_accounting/obj/Debug/net9.0/refint/HSE_financial_accounting.dll" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,12 +49,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/DedovInside/HSE_Financial_Accounting.git",
-    "accountId": "d0df3143-271c-4878-8bd0-ba4933d099a1"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;DedovInside&quot;
   }
-}]]></component>
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/DedovInside/HSE_Financial_Accounting.git&quot;,
+    &quot;accountId&quot;: &quot;d0df3143-271c-4878-8bd0-ba4933d099a1&quot;
+  }
+}</component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
@@ -34,22 +70,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Project.HSE_financial_accounting.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Project.HSE_financial_accounting.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RunManager">
+}</component>
+  <component name="RunManager" selected=".NET Project.HSE_financial_accounting">
     <configuration name="HSE_financial_accounting" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -125,7 +161,8 @@
       <workItem from="1742492339635" duration="326000" />
       <workItem from="1742492678768" duration="6433000" />
       <workItem from="1742499273158" duration="11386000" />
-      <workItem from="1742510860415" duration="831000" />
+      <workItem from="1742510860415" duration="1149000" />
+      <workItem from="1742512709819" duration="411000" />
     </task>
     <servers />
   </component>
@@ -136,53 +173,53 @@
     <option name="coveragePercentColumnWidth" value="147" />
     <option name="sortOrder" value="DESCENDING" />
     <option name="sortedColumn" value="1" />
-    <option name="symbolColumnWidth" value="311" />
+    <option name="symbolColumnWidth" value="346" />
     <coverage-tree-state>
       <expand>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 60% 1280/3238" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 64% 1206/3306" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 60% 1280/3238" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="HSE_financial_accounting 34% 1280/1937" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 64% 1206/3306" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="HSE_financial_accounting 38% 1206/1937" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 60% 1280/3238" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="HSE_financial_accounting 34% 1280/1937" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="HSE_financial_accounting 34% 1280/1937" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 64% 1206/3306" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="HSE_financial_accounting 38% 1206/1937" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="HSE_financial_accounting 38% 1206/1937" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 60% 1280/3238" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="HSE_financial_accounting 34% 1280/1937" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="HSE_financial_accounting 34% 1280/1937" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 64% 1206/3306" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="HSE_financial_accounting 38% 1206/1937" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="HSE_financial_accounting 38% 1206/1937" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
           <item name="DataExport 93% 8/119" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 60% 1280/3238" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="HSE_financial_accounting 34% 1280/1937" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="HSE_financial_accounting 34% 1280/1937" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 64% 1206/3306" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="HSE_financial_accounting 38% 1206/1937" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="HSE_financial_accounting 38% 1206/1937" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
           <item name="DataExport 93% 8/119" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
           <item name="CsvExportVisitor 96% 2/49" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 60% 1280/3238" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="HSE_financial_accounting 34% 1280/1937" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="HSE_financial_accounting 34% 1280/1937" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 64% 1206/3306" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="HSE_financial_accounting 38% 1206/1937" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="HSE_financial_accounting 38% 1206/1937" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
           <item name="DataExport 93% 8/119" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
           <item name="DataExporter 94% 2/33" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 60% 1280/3238" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="HSE_financial_accounting 34% 1280/1937" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="HSE_financial_accounting 34% 1280/1937" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="Repositories 30% 64/91" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 64% 1206/3306" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="HSE_financial_accounting 38% 1206/1937" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="HSE_financial_accounting 38% 1206/1937" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="DataImport 83% 15/89" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
       </expand>
       <select />
