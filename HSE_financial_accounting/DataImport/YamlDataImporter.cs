@@ -1,9 +1,9 @@
-﻿namespace HSE_financial_accounting.DataImport
+﻿using HSE_financial_accounting.Facades;
+using HSE_financial_accounting.DataTransferObjects;
+using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
+namespace HSE_financial_accounting.DataImport
 {
-    using Facades;
-    using DataTransferObjects;
-    using YamlDotNet.Serialization;
-    using YamlDotNet.Serialization.NamingConventions;
     public class YamlDataImporter : DataImporter
     {
         public YamlDataImporter(

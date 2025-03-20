@@ -2614,7 +2614,152 @@ namespace HSE_financial_accounting.Tests
         }
     }
     
-    
-    
+    public class InMemoryRepositoryTests
+    {
+        private interface ITestEntity
+        {
+            Guid Id { get; }
+            string Name { get; }
+        }
 
+        private class TestEntity : ITestEntity
+        {
+            public Guid Id { get; }
+            public string Name { get; }
+
+            public TestEntity(Guid id, string name)
+            {
+                Id = id;
+                Name = name;
+            }
+        }
+        
+        
+        [Fact]
+        public void Add_ShouldAddEntityToRepository()
+        {
+            // Arrange
+            InMemoryRepository<ITestEntity> repository = new();
+            TestEntity entity = new(Guid.NewGuid(), "Test Entity");
+
+            // Act
+            repository.Add(entity);
+
+            // Assert
+            ITestEntity? retrievedEntity = repository.GetById(entity.Id);
+            Assert.NotNull(retrievedEntity);
+            Assert.Equal(entity.Id, retrievedEntity.Id);
+            Assert.Equal(entity.Name, retrievedEntity.Name);
+        }
+        
+        [Fact]
+        public void GetById_ShouldReturnNull_WhenEntityDoesNotExist()
+        {
+            // Arrange
+            InMemoryRepository<ITestEntity> repository = new();
+            Guid nonExistentId = Guid.NewGuid();
+
+            // Act
+            ITestEntity? result = repository.GetById(nonExistentId);
+
+            // Assert
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public void Update_ShouldUpdateEntity_WhenEntityExists()
+        {
+            // Arrange
+            InMemoryRepository<ITestEntity> repository = new();
+            Guid id = Guid.NewGuid();
+            TestEntity originalEntity = new(id, "Original Name");
+            TestEntity updatedEntity = new(id, "Updated Name");
+
+            // Act
+            repository.Add(originalEntity);
+            repository.Update(updatedEntity);
+
+            // Assert
+            ITestEntity? retrievedEntity = repository.GetById(id);
+            Assert.Equal(updatedEntity, retrievedEntity);
+            Assert.Equal("Updated Name", retrievedEntity.Name);
+        }
+        
+
+        [Fact]
+        public void Delete_ShouldRemoveEntity_WhenEntityExists()
+        {
+            // Arrange
+            InMemoryRepository<ITestEntity> repository = new();
+            TestEntity entity = new(Guid.NewGuid(), "Test Entity");
+            repository.Add(entity);
+
+            // Act
+            repository.Delete(entity.Id);
+
+            // Assert
+            ITestEntity? retrievedEntity = repository.GetById(entity.Id);
+            Assert.Null(retrievedEntity);
+        }
+
+        [Fact]
+        public void Delete_ShouldDoNothing_WhenEntityDoesNotExist()
+        {
+            // Arrange
+            InMemoryRepository<ITestEntity> repository = new();
+            Guid nonExistentId = Guid.NewGuid();
+
+            // Act & Assert
+            // Should not throw an exception
+            repository.Delete(nonExistentId);
+        }
+        
+        [Fact]
+        public void GetAll_ShouldReturnAllEntities()
+        {
+            // Arrange
+            InMemoryRepository<ITestEntity> repository = new();
+            TestEntity entity1 = new(Guid.NewGuid(), "Entity 1");
+            TestEntity entity2 = new(Guid.NewGuid(), "Entity 2");
+            TestEntity entity3 = new(Guid.NewGuid(), "Entity 3");
+
+            repository.Add(entity1);
+            repository.Add(entity2);
+            repository.Add(entity3);
+
+            // Act
+            List<ITestEntity> allEntities = repository.GetAll().ToList();
+
+            // Assert
+            Assert.Equal(3, allEntities.Count);
+            Assert.Contains(entity1, allEntities);
+            Assert.Contains(entity2, allEntities);
+            Assert.Contains(entity3, allEntities);
+        }
+
+        [Fact]
+        public void GetAll_ShouldReturnEmptyCollection_WhenRepositoryIsEmpty()
+        {
+            // Arrange
+            InMemoryRepository<ITestEntity> repository = new();
+
+            // Act
+            IEnumerable<ITestEntity> allEntities = repository.GetAll();
+
+            // Assert
+            Assert.Empty(allEntities);
+        }
+
+        [Fact]
+        public void Constructor_ShouldInitializeEmptyRepository()
+        {
+            // Arrange & Act
+            InMemoryRepository<ITestEntity> repository = new();
+
+            // Assert
+            Assert.Empty(repository.GetAll());
+        }
+        
+    }
+    
 }
