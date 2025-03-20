@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HSE_financial_accounting", "HSE_financial_accounting\HSE_financial_accounting.csproj", "{C5AD0572-30CD-4D2E-B8AD-EF6CE3AB6553}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HSE_financial_accounting.Tests", "HSE_financial_accounting.Tests\HSE_financial_accounting.Tests.csproj", "{1C438127-3F7D-40DA-AC51-36AC657FBFF8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C5AD0572-30CD-4D2E-B8AD-EF6CE3AB6553}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5AD0572-30CD-4D2E-B8AD-EF6CE3AB6553}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5AD0572-30CD-4D2E-B8AD-EF6CE3AB6553}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5AD0572-30CD-4D2E-B8AD-EF6CE3AB6553}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C438127-3F7D-40DA-AC51-36AC657FBFF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C438127-3F7D-40DA-AC51-36AC657FBFF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C438127-3F7D-40DA-AC51-36AC657FBFF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C438127-3F7D-40DA-AC51-36AC657FBFF8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

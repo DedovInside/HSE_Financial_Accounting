@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "o/XSytNuUZY=",
+  "success": true,
+  "projectFilePath": "C:\\SoftwareConstruction\\HSE_financial_accounting\\HSE_financial_accounting\\HSE_financial_accounting.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\johnn\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
+    "C:\\Users\\johnn\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\10.0.0-preview.1.25080.5\\microsoft.extensions.dependencyinjection.10.0.0-preview.1.25080.5.nupkg.sha512",
+    "C:\\Users\\johnn\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\10.0.0-preview.1.25080.5\\microsoft.extensions.dependencyinjection.abstractions.10.0.0-preview.1.25080.5.nupkg.sha512",
+    "C:\\Users\\johnn\\.nuget\\packages\\moq\\4.20.72\\moq.4.20.72.nupkg.sha512",
+    "C:\\Users\\johnn\\.nuget\\packages\\system.diagnostics.eventlog\\6.0.0\\system.diagnostics.eventlog.6.0.0.nupkg.sha512",
+    "C:\\Users\\johnn\\.nuget\\packages\\yamldotnet\\16.3.0\\yamldotnet.16.3.0.nupkg.sha512"
+  ],
+  "logs": []
+}
